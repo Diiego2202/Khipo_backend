@@ -64,6 +64,9 @@ export class ProjectService {
           },
         },
       },
+      include: {
+        tasks: true,
+      },
     });
   }
 }

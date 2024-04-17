@@ -15,9 +15,8 @@ import { ProjectService } from './service/project.service';
 import { TagService } from './service/tag.service';
 import { TaskService } from './service/task.service';
 import { UserService } from './service/user.service';
-import { Prisma, Project as ProjectModel, Tag as TagModel, Task as TaskModel, User as UserModel } from '@prisma/client';
+import { Project as ProjectModel, Tag as TagModel, Task as TaskModel, User as UserModel } from '@prisma/client';
 import { Status } from './status.enum';
-import { STATUS_CODES } from 'http';
 
 @Controller()
 export class AppController {
@@ -77,13 +76,8 @@ export class AppController {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    // Aqui você pode gerar e retornar um token JWT ou qualquer outra lógica de autenticação
-    // Por exemplo, usando a biblioteca 'jsonwebtoken'
-    // const token = jwt.sign({ sub: user.id }, 'your_secret_key', { expiresIn: '1h' });
-
     return {
       statusCode: 200,
-      // token, // Se estiver usando JWT
     };
   }
 
