@@ -55,7 +55,7 @@ export class AppController {
   @Put('user/:id')
   async updateUser(
     @Param('id') id: string,
-    @Body() userData: { name?: string; email?: string; password?: string }
+    @Body() userData: { name?: string; email?: string; password?: string}
   ): Promise<UserModel> {
     const userId = parseInt(id, 10);
 
@@ -78,6 +78,8 @@ export class AppController {
 
     return {
       statusCode: 200,
+      userID: user.id,
+      username: user.name,
     };
   }
 
@@ -177,7 +179,16 @@ export class AppController {
       );
     }
 
-    //fazer a parte de remover tags
+    if (removeTags && removeTags.length > 0) {
+      await Promise.all(
+        removeTags.map(async tag => {
+          const existingTag = await this.tagService.tag({ title: tag, taskID: updatedTask.id }); // Adicionei taskId para verificar a existência do tag em relação à tarefa
+          if (existingTag) {
+            await this.tagService.deleteTag({ id: existingTag.id });
+          }
+        })
+      );
+    }
   
     return updatedTask;
   }

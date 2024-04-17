@@ -32,14 +32,12 @@ export class TaskService {
   }
 
   async createTask(data: Prisma.TaskCreateInput, tags: string[]): Promise<{ task: Task; tags: Tag[] }> {
-    // Criar a tarefa
     const task = await this.prisma.task.create({
       data,
     });
   
     const createdTags = [];
   
-    // Criar tags e associar à tarefa
     if (tags && tags.length > 0) {
       await Promise.all(
         tags.map(async (tagTitle) => {

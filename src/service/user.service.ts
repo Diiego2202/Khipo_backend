@@ -31,11 +31,11 @@ export class UserService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    const hashedPassword = await bcrypt.hash(data.password, 10); // Gera o hash da senha
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     return this.prisma.user.create({
       data: {
         ...data,
-        password: hashedPassword, // Salva a senha hashada
+        password: hashedPassword,
       },
     });
   }
@@ -48,7 +48,7 @@ export class UserService {
     }
 
     if (userData.password) {
-      userData.password = await bcrypt.hash(userData.password, 10); // Gera o hash da nova senha
+      userData.password = await bcrypt.hash(userData.password, 10);
     }
 
     return this.prisma.user.update({
@@ -91,7 +91,7 @@ export class UserService {
   async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: {
-        email: email, // Definindo o campo email
+        email: email,
       },
     });
   
@@ -99,7 +99,7 @@ export class UserService {
       return null;
     }
   
-    const isPasswordValid = await bcrypt.compare(password, user.password); // Verifica se a senha é válida
+    const isPasswordValid = await bcrypt.compare(password, user.password);
   
     if (isPasswordValid) {
       return user;
