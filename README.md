@@ -16,6 +16,7 @@ criar um arquivo chamado ".env" com a url para seu database (postgre). Coloque a
 Instalar dependencias
 
 - npm i
+- npx prisma migrate dev
 
 Iniciar o projeto
 
